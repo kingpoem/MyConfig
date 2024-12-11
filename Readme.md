@@ -11,9 +11,8 @@
 
 ~/.config/nvim
 
-- init.lua
-- init.vim
-- lua
+- config.lua
+- lua/usr/
 
 ## tmux
 
