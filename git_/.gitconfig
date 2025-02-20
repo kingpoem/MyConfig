@@ -1,19 +1,22 @@
-# This is Git's per-user configuration file.
-[user]
-	name = poem
-	email = junqiwang93@gmail.com
-# Please adapt and uncomment the following lines:
-#	name = poem
-#	email = poem@myarch.localdomain
-[alias]
-	d = diff
-	gl = config --global -l
-	st = status -s
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset%s%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	ll = log --oneline
-	last = log -1 HEAD --stat
-	cm = commit -m
-	rv = remote -v
-	dv = difftool -t gvimdiff -y
 [init]
 	defaultBranch = main
+[user]
+	name = poem
+	email = 1322153392@qq.com
+[alias]
+	ll = log --oneline
+	cm = commit -m
+	gl = config --global -l
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset%s%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status -s
+	rv = remote -v
+	dv = difftool -t vimdiff -y
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[core]
+	editor = vim
+[color]
+	ui = true
