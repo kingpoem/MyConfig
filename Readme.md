@@ -7,10 +7,10 @@
 `config.sh` 脚本将根据您的主机名自动创建一个 git 分支供您自行配置。
 在该仓库根目录下，通过运行
 ```bash
-bash ./config.sh -i|u -d dot-config-name
+bash ./config.sh -i|u [-d dot-config-name]
 ```
-- `-i` 将项目中的默认配置文件软链接到您的相应配置文件上。
-- `-u` 将您自己的配置文件更新到仓库中，供您管理。
+- `-i` 将项目中的默认配置文件软链接到您的相应配置文件上，默认更新全部。
+- `-u` 将您自己的配置文件更新到仓库中，默认更新全部。
 - `-d` 指定 dot-config-name，可选值如下：
     - git
     - lvim

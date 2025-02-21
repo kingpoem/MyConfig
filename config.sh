@@ -17,8 +17,10 @@ function init() {
     if [ ! -d "$1" ]; then
         mkdir $1
     fi
-    ln -s ~/${2} $(git rev-parse --show-toplevel)/${1}/$( basename ${2} )
-    echo -e "\e[32mInitializing $2 configuration successfully!\e[0m"
+    ln -is ~/${2} $(git rev-parse --show-toplevel)/${1}/$( basename ${2} )
+    if [ $? -eq 0 ]; then
+        echo -e "\e[32mInitializing $2 configuration successfully!\e[0m"
+    fi
 }
 
 function update() {
@@ -27,7 +29,9 @@ function update() {
         mkdir $1
     fi
     cp -i ~/${2} ${ROOT_DIR}/${1}/$( basename ${2} )
-    echo -e "\e[32mUpdating $2 configuration successfully!\e[0m"
+    if [ $? -eq 0 ]; then
+        echo -e "\e[32mUpdating $2 configuration successfully!\e[0m"
+    fi
 }
 
 # check if it is a git repository
@@ -40,8 +44,8 @@ fi
 if git show-ref --verify --quiet refs/heads/"$HOSTNAME"; then
     if [ "$CURRENT_BRANCH" != "$HOSTNAME" ]; then
         git switch "$HOSTNAME"
-        echo -e "\e[31mBranch `$HOSTNAME` already exists, switch to it successfully!\e[0m"
-        echo -e "\e[31mIf you want to name it differently, please remove this block in pre.sh and run `git branch -m $CURRENT_BRANCH your_branch_name` manually!\e[0m"
+        echo -e "\e[31mBranch "$HOSTNAME" already exists, switch to it successfully!\e[0m"
+        echo -e "\e[31mIf you want to name it differently, please remove this block in pre.sh: `echo $LINENO` and run `git branch -m $CURRENT_BRANCH your_branch_name` manually!\e[0m"
     fi
 else
     git switch -c $HOSTNAME
@@ -69,6 +73,11 @@ done
 
 if [[ "$DIR" == "all" ]]; then
     echo -e "\e[32mAll files will ${TAG}!\e[0m"
+    ${TAG} "${git_config[0]}" "${git_config[1]}"
+    ${TAG} "${lvim_config[0]}" "${lvim_config[1]}"
+    ${TAG} "${lvim_config[0]}" "${lvim_config[2]}"
+    ${TAG} "${tmux_config[0]}" "${tmux_config[1]}"
+    ${TAG} "${zsh_config[0]}" "${zsh_config[1]}"
 elif [[ "$DIR" == "git" ]]; then
     echo -e "\e[32m请选择要 ${TAG} 的 git 配置文件：\e[0m"
     echo -e "\e[32m1. .gitconfig\e[0m"
