@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+# set -eux
 
 declare -r HOSTNAME=$(hostname)
 declare -r CURRENT_BRANCH=$(git branch --show-current)
