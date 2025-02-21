@@ -17,6 +17,12 @@ function init() {
     if [ ! -d "$1" ]; then
         mkdir $1
     fi
+    if [ ! -d "$( dirname "$2")" ]; then
+        mkdir -p $( dirname "$2" )
+    fi
+    if [ ! -f "$2" ]; then
+        touch $2
+    fi
     ln -is $(git rev-parse --show-toplevel)/${1}/$( basename ${2} ) ~/${2} 
     if [ $? -eq 0 ]; then
         echo -e "\e[32mInitializing $2 configuration successfully!\e[0m"
@@ -45,7 +51,7 @@ if git show-ref --verify --quiet refs/heads/"$HOSTNAME"; then
     if [ "$CURRENT_BRANCH" != "$HOSTNAME" ]; then
         git switch "$HOSTNAME"
         echo -e "\e[31mBranch "$HOSTNAME" already exists, switch to it successfully!\e[0m"
-        echo -e "\e[31mIf you want to name it differently, please remove this block in pre.sh: `echo $LINENO` and run `git branch -m $CURRENT_BRANCH your_branch_name` manually!\e[0m"
+        echo -e "\e[31mIf you want to name it differently, please remove this block in config.sh: `echo $LINENO` and run `git branch -m $CURRENT_BRANCH your_branch_name` manually!\e[0m"
     fi
 else
     git switch -c $HOSTNAME
