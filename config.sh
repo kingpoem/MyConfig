@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -eux
+set -eux
 
 declare -r HOSTNAME=$(hostname)
 declare -r CURRENT_BRANCH=$(git branch --show-current)
@@ -51,7 +51,7 @@ if git show-ref --verify --quiet refs/heads/"$HOSTNAME"; then
     if [ "$CURRENT_BRANCH" != "$HOSTNAME" ]; then
         git switch "$HOSTNAME"
         echo -e "\e[31mBranch "$HOSTNAME" already exists, switch to it successfully!\e[0m"
-        echo -e "\e[31mIf you want to name it differently, please remove this block in config.sh: `echo $LINENO` and run `git branch -m $CURRENT_BRANCH your_branch_name` manually!\e[0m"
+        echo -e "\e[31mIf you want to name it differently, please remove this block in config.sh: `echo $LINENO` and run 'git branch -m CURRENT_BRANCH your_branch_name' manually!\e[0m"
     fi
 else
     git switch -c $HOSTNAME
