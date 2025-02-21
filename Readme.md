@@ -1,29 +1,22 @@
 # Dot configuration
 
-这是我的 Dot 配置文件管理仓库。通过 `init.sh` 和 `update.sh` 脚本可以实现自动更新配置。所有配置文件路径尽量按照官方和默认配置放置。
+这是我的 Dot 配置文件管理仓库。通过 `config.sh` 脚本可以实现自动更新配置。所有配置文件路径尽量按照官方和默认配置放置。
 
 ## 使用方法
 
-`init.sh` 和 `update.sh` 脚本将根据您的主机名自动创建一个 git 分支供您自行配置。
+`config.sh` 脚本将根据您的主机名自动创建一个 git 分支供您自行配置。
 在该仓库根目录下，通过运行
 ```bash
-bash init.sh dot-config-name
+bash ./config.sh -i|u -d dot-config-name
 ```
-即可将项目中的默认配置文件软链接到您的相应配置文件上。
-
-通过运行
-```bash
-bash update.sh dot-config-name
-```
-即可将您自己的配置文件更新到仓库中，供您管理。
-
-目前支持的 `dot-config-name` 如下：
-
-- git
-- lvim
-- tmux
-- zsh
-- all 更新所有在上面提到的配置文件
+- `-i` 将项目中的默认配置文件软链接到您的相应配置文件上。
+- `-u` 将您自己的配置文件更新到仓库中，供您管理。
+- `-d` 指定 dot-config-name，可选值如下：
+    - git
+    - lvim
+    - tmux
+    - zsh
+    - all 更新所有在上面提到的配置文件
 
 如您有其他需求，欢迎提 issue，或者您可以自行修改脚本。
 
@@ -33,7 +26,7 @@ bash update.sh dot-config-name
 
 本仓库仅处理全局配置文件，git 配置文件路径如下：
 - `/etc/gitconfig` 系统配置文件
-- `~/.gitconfig` 全局配置文件
+- `~/.gitconfig` 用户配置文件
 - `.git/config` 局部配置文件
 
 ### lvim
@@ -58,6 +51,11 @@ bash update.sh dot-config-name
 
 相关配置参考：
 [Oh My Zsh][ohmyzsh]
+
+### gdb
+
+- `/etc/gdb/gdbinit` 系统配置文件
+- `~/.gdbinit` 用户配置文件
 
 ### nvim
 
