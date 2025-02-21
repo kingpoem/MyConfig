@@ -17,7 +17,7 @@ function init() {
     if [ ! -d "$1" ]; then
         mkdir $1
     fi
-    ln -is ~/${2} $(git rev-parse --show-toplevel)/${1}/$( basename ${2} )
+    ln -is $(git rev-parse --show-toplevel)/${1}/$( basename ${2} ) ~/${2} 
     if [ $? -eq 0 ]; then
         echo -e "\e[32mInitializing $2 configuration successfully!\e[0m"
     fi
