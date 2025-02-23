@@ -35,12 +35,13 @@ test -f "/home/poem/.xmake/profile" && source "/home/poem/.xmake/profile"
 # auto start tmux
 if [ -z "$TMUX" ]
 then
-    tmux attach -t master || tmux new -s master
+  tmux attach -t "1" || tmux new -s "1"
 fi
 
 # ZSH Theme
 # https://github.com/ohmyzsh/ohmyzsh/wiki/themes
 ZSH_THEME="agnoster"
+
 
 # change directories
 alias ..="cd .."
@@ -69,6 +70,16 @@ c() {
         echo "目录不存在: $1"
     fi
 }
+color_test() {
+  awk 'BEGIN{
+      for(col=0; col<256; col++) {
+          printf "\033[48;2;%d;%d;%dm", col,col,col
+          printf "%4d", col
+          printf "\033[0m"
+      }
+      printf "\n"
+  }'
+}
 
 # configuration
 
@@ -76,8 +87,9 @@ c() {
 alias zshc="lvim ~/.zshrc && source ~/.zshrc"
 alias omzc="lvim ~/.oh-my-zsh && source ~/.zshrc"
 alias vimc="lvim ~/.vimrc && source ~/.vimrc"
-alias tmuxc="lvim ~/.tmux.conf && source ~/.tmux.conf"
+alias tmuxc="lvim ~/.tmux.conf && source ~/.tmux.conf 2>/dev/null"
 alias gitc="lvim ~/.gitconfig"
+alias gdbc="lvim ~/.gdbinit"
 alias lv="/home/poem/.local/bin/lvim"
 
 ## pacman configuration
@@ -87,10 +99,10 @@ alias syu="sudo pacman -Syu"
 alias ss="pacman -Ss"
 alias ql="pacman -Ql"
 alias pacmanc="sudo /home/poem/.local/bin/lvim /etc/pacman.conf"
+alias scc="sudo pacman -Scc --noconfirm && paru -Scc --noconfirm && sudo rm -rf /boot/initramfs-linux-fallback.img"
 
 ## conda configuration
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
-source /opt/anaconda/bin/activate
 alias act="conda activate"
 
 ## docker configuration
@@ -99,7 +111,7 @@ alias docker-stop="sudo systemctl stop docker.socket"
 alias docker="sudo docker"
 
 alias rv64="riscv64-linux-gnu-gcc"
-alias tmuxn="tmux attach -t master || tmux new -s master"
+alias tmuxn="tmux attach -t '1' || tmux new -s '1'"
 alias remake="rm -rf build && cmake -B build && cmake --build build -j $(nproc)"
 alias rebuild="cmake --build build -j $(nproc)"
 alias kills="tmux kill-session -t"
@@ -138,5 +150,6 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init      # 注册为Zsh行编辑的初始化函数
 zle -N zle-keymap-select  # 注册为Zsh行编辑模式改变时的回调函数
 
-setopt no_nomatch   # 如果使用通配符但没有匹配到任何文本 Zsh不会报错 而是保留原始的通配符文本
+setopt no_nomatch  
+# 如果使用通配符但没有匹配到任何文本 Zsh不会报错 而是保留原始的通配符文本
 

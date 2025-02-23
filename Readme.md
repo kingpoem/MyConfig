@@ -39,7 +39,9 @@ bash ./config.sh -i|u [-d dot-config-name]
 
 ### tmux
 
-- `~/.tmux.conf` 默认配置文件
+tmux 配置文件均为自己创建，通常有2个
+- `~/.tmux.conf` 配置文件
+- `~/.config/tmux/.tmux.conf` 配置文件
 - `~/.tmux/plugins/tpm/ ` 插件管理器目录
 
 相关配置参考：
