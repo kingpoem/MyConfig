@@ -11,8 +11,9 @@ declare -x -a -r git_config=("git_" ".gitconfig")
 declare -x -a -r lvim_config=("lvim_" ".config/lvim/config.lua" ".config/lvim/lazy-lock.json")
 declare -x -a -r tmux_config=("tmux_" ".tmux.conf")
 declare -x -a -r zsh_config=("zsh_" ".zshrc")
+declare -x -a -r gdb_config=("gdb_" ".gdbinit")
 
-function init() {
+function fetch() {
     local dir="$1"
     if [ ! -d "$1" ]; then
         mkdir $1
@@ -29,7 +30,7 @@ function init() {
     fi
 }
 
-function update() {
+function push() {
     local dir="$1"
     if [ ! -d "$1" ]; then
         mkdir $1
@@ -59,13 +60,13 @@ else
 fi
 # ==========================================================================================================
 
-while getopts "iud::" opt; do
+while getopts "fpd::" opt; do
     case ${opt} in
-        i)
-            declare -x -r TAG="init"
+        f)
+            declare -x -r TAG="fetch"
             ;;
-        u)
-            declare -x -r TAG="update"
+        p)
+            declare -x -r TAG="push"
             ;;
         d)
             DIR=${OPTARG}
@@ -78,12 +79,13 @@ while getopts "iud::" opt; do
 done
 
 if [[ "$DIR" == "all" ]]; then
-    echo -e "\e[32mAll files will ${TAG}!\e[0m"
+    echo -e "\e[32mGoing to ${TAG} all files!\e[0m"
     ${TAG} "${git_config[0]}" "${git_config[1]}"
     ${TAG} "${lvim_config[0]}" "${lvim_config[1]}"
     ${TAG} "${lvim_config[0]}" "${lvim_config[2]}"
     ${TAG} "${tmux_config[0]}" "${tmux_config[1]}"
     ${TAG} "${zsh_config[0]}" "${zsh_config[1]}"
+    ${TAG} "${gdb_config[0]}" "${gdb_config[1]}"
 elif [[ "$DIR" == "git" ]]; then
     echo -e "\e[32m请选择要 ${TAG} 的 git 配置文件：\e[0m"
     echo -e "\e[32m1. .gitconfig\e[0m"
@@ -149,6 +151,22 @@ elif [[ "$DIR" == "zsh" ]]; then
         case $char in 
             1)
                 ${TAG} "${zsh_config[0]}" "${zsh_config[1]}"
+                ;;
+            *)
+                echo "Invalid option: $char" >&2
+                exit 1
+                ;;
+        esac
+    done
+elif [[ "$DIR" == "gdb" ]]; then
+    echo -e "\e[32m请选择要 ${TAG} 的 gdb 配置文件：\e[0m"
+    echo -e "\e[32m1..gdbinit\e[0m"
+    read -p "请输入序号：" num
+    for (( i=0; i<${#num}; i++ )); do
+        char="${num:$i:1}"
+        case $char in
+            1)
+                ${TAG} "${gdb_config[0]}" "${gdb_config[1]}"
                 ;;
             *)
                 echo "Invalid option: $char" >&2

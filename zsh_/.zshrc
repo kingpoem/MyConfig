@@ -95,7 +95,7 @@ alias lv="/home/poem/.local/bin/lvim"
 ## pacman configuration
 alias qs="pacman -Qs"
 alias get="sudo pacman -S"
-alias syu="sudo pacman -Syu"
+alias syu="sudo pacman -Syu --quiet --noconfirm 2>/dev/null"
 alias ss="pacman -Ss"
 alias ql="pacman -Ql"
 alias pacmanc="sudo /home/poem/.local/bin/lvim /etc/pacman.conf"
