@@ -15,16 +15,17 @@ declare -x -a -r gdb_config=("gdb_" ".gdbinit")
 
 function fetch() {
     local dir="$1"
+    local target_path = "$HOME/$2"
     if [ ! -d "$1" ]; then
         mkdir $1
     fi
-    if [ ! -d "$( dirname "$2")" ]; then
-        mkdir -p $( dirname "$2" )
+    if [ ! -d "$( dirname "$target_path")" ]; then
+        mkdir -p $( dirname "$target_path" )
     fi
-    if [ ! -f "$2" ]; then
-        touch $2
+    if [ ! -f "$target_path" ]; then
+        touch "$target_path"
     fi
-    ln -is $(git rev-parse --show-toplevel)/${1}/$( basename ${2} ) ~/${2} 
+    ln -is "$(git rev-parse --show-toplevel)/${1}/$( basename ${2} )" "$target_path"
     if [ $? -eq 0 ]; then
         echo -e "\e[32mInitializing $2 configuration successfully!\e[0m"
     fi
