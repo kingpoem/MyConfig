@@ -1,11 +1,13 @@
 # export env variable
+export VERILATOR_ROOT="/usr/local"
+export NPC_HOME=/home/poem/app/github/ysyx-workbench/npc
 export AM_HOME=/home/poem/app/github/ysyx-workbench/abstract-machine
 export NEMU_HOME=/home/poem/app/github/ysyx-workbench/nemu
 export VCPKG_ROOT="$HOME/app/vcpkg"
 export VCPKG="$HOME/app/vcpkg/vcpkg"
 export HEXO="$HOME/app/hexo/node_modules/.bin"
 export LOCAL="$HOME/.local/bin"
-export CONDA="/opt/anaconda/bin/conda"
+export CONDA="/opt/anaconda/bin"
 export CXX="/usr/bin/g++"
 export BIN="$HOME/bin:/usr/local/bin"
 export CURL_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
@@ -13,14 +15,19 @@ export JAVAC_HOME="/usr/lib/jvm/java-23-openjdk/bin"
 export QSYS_ROOTDIR="/home/poem/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"
 
 # ccache
-export CC="ccache gcc"
-export CXX="ccache g++"
-export CCACHE_MAXSIZE=10G
-export CCACHE="/usr/lib/ccache/bin"
-export CCACHE_DIR="~/.ccache"
+# export CC="ccache gcc"
+# export CXX="ccache g++"
+# export CCACHE_MAXSIZE=10G
+# export CCACHE="/usr/lib/ccache/bin"
+# export CCACHE_DIR=".ccache"
+
+# proxy
+export http_proxy="http://127.0.0.1:7897"
+export https_proxy="http://127.0.0.1:7897"
+export GITHUB_PROXY="https://moeyy.cn/gh-proxy"
 
 # help seek exe; if not add them to PATH, then can not use them in command
-export PATH="$CCACHE:$PATH:$VCPKG_ROOT:$VCPKG:$HEXO:$LOCAL:$CONDA:$CXX:$BIN:$CURL_CA_BUNDLE:$JAVAC_HOME:$QSYS_ROOTDIR"
+export PATH="$CCACHE:$PATH:$VCPKG_ROOT:$VCPKG:$HEXO:$LOCAL:$CXX:$BIN:$CURL_CA_BUNDLE:$JAVAC_HOME:$QSYS_ROOTDIR:$VERILATOR_ROOT"
 
 # env variable
 ZSH=/usr/share/oh-my-zsh/
@@ -42,7 +49,6 @@ fi
 # https://github.com/ohmyzsh/ohmyzsh/wiki/themes
 ZSH_THEME="agnoster"
 
-
 # change directories
 alias ..="cd .."
 alias ap="cd ~/app && eza -la"
@@ -56,13 +62,14 @@ alias blog="cd ~/app/github/blog"
 alias l="eza --long --all"
 alias make="make -j $(nproc)"
 alias lg="lazygit"
-alias cls="sudo clear"
+alias cl="sudo clear"
 alias q="exit"
 alias dmesg="sudo dmesg"
 alias del="rm -rf"
 alias mv="mv -i"
 alias his="history"
 alias hexo_="blog && hexo clean && hexo generate && hexo server &"
+alias copy="$HOME/app/copy-paste"
 c() {
     if [ -d "$1" ]; then
         cd "$1" && eza -la
@@ -90,7 +97,12 @@ alias vimc="lvim ~/.vimrc && source ~/.vimrc"
 alias tmuxc="lvim ~/.tmux.conf && source ~/.tmux.conf 2>/dev/null"
 alias gitc="lvim ~/.gitconfig"
 alias gdbc="lvim ~/.gdbinit"
+alias bashc="lvim ~/.bashrc"
 alias lv="/home/poem/.local/bin/lvim"
+
+## cpp configuration
+alias Bcmake="cmake -B build"
+alias bcmake="cmake --build build 2>&1 | tee build/build.log"
 
 ## pacman configuration
 alias qs="pacman -Qs"
@@ -103,6 +115,7 @@ alias scc="sudo pacman -Scc --noconfirm && paru -Scc --noconfirm && sudo rm -rf 
 
 ## conda configuration
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
+alias acti="source /opt/anaconda/bin/activate"
 alias act="conda activate"
 
 ## docker configuration

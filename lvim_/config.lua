@@ -44,8 +44,8 @@ reload "user.matchup"
 reload "user.modicator"
 vim.opt.cmdheight = 2 -- more space in the neovim command line for displaying messages
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
-vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 2 -- insert 2 spaces for a tab
+vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 4 -- insert 2 spaces for a tab
 vim.opt.relativenumber = true -- relative line numbers
 vim.opt.clipboard = "unnamedplus" -- let lvim utilize system clipboard
 -- vim.opt.wrap = false -- wrap lines
@@ -65,7 +65,7 @@ lvim.autocommands = {
         -- change `Normal` to the group you want to change
         -- and `#ffffff` to the color you want
         -- see `:h nvim_set_hl` for more options
-        vim.api.nvim_set_hl(0, "Normal", { bg = "#ffffff", underline = false, bold = true })
+        vim.api.nvim_set_hl(0, "Normal", { bg = "#B0C4DE", underline = false, bold = true })
       end,
     },
   },
@@ -107,7 +107,7 @@ lvim.plugins = {
 }
 local colors = {
   color2 = "#0f1419",
-  color3 = "#ffee99",
+  color3 = "#B0C4DE",
   color4 = "#e6e1cf",
   color5 = "#14191f",
   color13 = "#b8cc52",
